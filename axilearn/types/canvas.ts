@@ -31,6 +31,23 @@ export interface CanvasRawPage {
   body: string;
 }
 
+export interface CleanPage {
+  url: string;
+  title: string;
+  createdAt: string;
+  editingRoles: string;
+  pageId: number;
+  published: boolean;
+  hideFromStudents: boolean;
+  frontPage: boolean;
+  htmlUrl: string;
+  todoDate: string | null;
+  publishAt: string | null;
+  updatedAt: string;
+  lockedForUser: boolean;
+  body: string;
+}
+
 export interface CanvasRawModuleContentDetails {
   locked_for_user?: boolean;
   display_name?: string;
@@ -47,21 +64,6 @@ export interface CanvasRawModuleContentDetails {
   lock_explanation?: string;
 }
 
-export interface CanvasRawModuleItem {
-  id: number;
-  position: number;
-  title: string;
-  indent: number;
-  quiz_lti: boolean;
-  type: string;
-  module_id: number;
-  html_url?: string;
-  page_url?: string;
-  publish_at?: string | null;
-  content_id?: number;
-  url?: string;
-  content_details?: CanvasRawModuleContentDetails;
-}
 
 // 1. RAW: Exactly what comes from the Canvas API
 export interface CanvasRawModule {
@@ -95,6 +97,22 @@ export interface CleanModuleContentDetails {
   lockExplanation: string | null;
 }
 
+export interface CanvasRawModuleItem {
+  id: number;
+  position: number;
+  title: string;
+  indent: number;
+  quiz_lti: boolean;
+  type: string;
+  module_id: number;
+  html_url: string;
+  page_url: string;
+  publish_at: string | null;
+  content_id: number;
+  url?: string;
+  content_details?: CanvasRawModuleContentDetails;
+}
+
 export interface CleanModuleItem {
   id: number;
   position: number;
@@ -103,8 +121,8 @@ export interface CleanModuleItem {
   quizLti: boolean;
   type: string;
   moduleId: number;
-  htmlUrl: string | null;
-  pageUrl: string | null;
+  htmlUrl: string ;
+  pageUrl: string ;
   publishAt: string | null;
   contentId: number | null;
   url: string;
