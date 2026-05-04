@@ -150,3 +150,19 @@ export interface CourseDetail {
   };
   modules: CleanModule[];
 }
+
+export interface RawFile {
+  id: number;
+  display_name: string;
+  filename: string;
+  'content-type': string; // Keys with hyphens must be quoted
+  url: string;
+}
+export interface CleanFile {
+  id: string;
+  displayName: string;
+  fileName: string;
+  contentType: string;
+  downloadUrl: string;
+  isPdf: boolean;
+}

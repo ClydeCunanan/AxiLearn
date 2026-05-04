@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
-import { getFilebyId } from "@/lib/canvas";
+import {getBlobURL} from "@/lib/canvas";
 
 import { PDFViewer } from '@embedpdf/react-pdf-viewer';
+
+
 
 
 export default async function page(
@@ -10,12 +12,9 @@ export default async function page(
 ) {
  const { courseId, fileUrl } = await params;
 
- const file = await getFilebyId(courseId, fileUrl);
- const src = file.downloadUrl
-
+    const src = await getBlobURL(courseId, fileUrl);
  return (
    <div>
-     <h1>{file.displayName}</h1>
      <div style={{ height: '80vh' }}>
        <PDFViewer config={{ src }} />
      </div>
