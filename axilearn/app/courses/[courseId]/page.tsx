@@ -20,10 +20,12 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
            <AccordionContent className="px-4 sm:px-5">
             <div className="mb-3 h-px bg-white/10" />
              {module.items.map((item) => (
-              <Link key = {item.id} href ={item.url}>
-              <div key={item.id} className="mb-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-slate-100 shadow-sm shadow-black/10 last:mb-0">
+              <Link
+                key={item.id}
+                href={`/courses/${courseId}/file/${encodeURIComponent(String(item.contentId ?? item.id))}`}
+                className="mb-2 block rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-slate-100 shadow-sm shadow-black/10 last:mb-0"
+              >
                 <h3 className="text-sm font-medium leading-5 text-slate-50">{item.title}</h3>
-              </div>
               </Link>
             ))}
             </AccordionContent>
