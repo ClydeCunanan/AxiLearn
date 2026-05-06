@@ -75,6 +75,8 @@ color: #0f172a;
 padding: 0.9rem 1rem 0.55rem;
 text-wrap: balance;
 }
-
+Link {
+  text-decoration: none;
+}
 
 }

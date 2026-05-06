@@ -108,7 +108,7 @@ export interface CanvasRawModuleItem {
   html_url: string;
   page_url: string;
   publish_at: string | null;
-  content_id: number;
+  content_id: number; 
   url?: string;
   content_details?: CanvasRawModuleContentDetails;
 }

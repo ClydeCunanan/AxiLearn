@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
                 <div className="mb-3 h-px bg-border/70" />
                 <div className="space-y-2">
                   {module.items.map((item) => {
-                    if (item.type === "subheader") {
+                    if (item.type === "subheader" || item.type === "quiz") {
                       return (
                         <div
                           key={item.id}
@@ -42,7 +42,9 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
                           {item.title}
                         </div>
                       )
+                     
                     }
+                    
 
                     const href =
                       item.pageUrl == null
@@ -53,9 +55,9 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
                       <Link
                         key={item.id}
                         href={href}
-                        className="block rounded-xl border border-border/70 bg-background px-3 py-3 text-foreground shadow-sm transition-colors hover:bg-muted/70"
+                        className=" block rounded-xl border border-border/70 bg-background px-3 py-3 text-foreground shadow-sm transition-colors hover:bg-muted/70"
                       >
-                        <h3 className="text-sm font-medium leading-5">{item.title}</h3>
+                        <h3 className=" text-sm font-medium leading-5">{item.title}</h3>
                       </Link>
                     )
                   })}
