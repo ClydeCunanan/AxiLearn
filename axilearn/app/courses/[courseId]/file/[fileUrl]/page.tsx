@@ -4,10 +4,9 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
   const { courseId, fileUrl } = await params
   const file = await getFilebyId(courseId, fileUrl) // This should be an async call, but for simplicity, we're treating it as synchronous here. In a real implementation, you'd want to handle loading states and errors properly.
   
-const src = `/api/pdf?canvasUrl=${encodeURIComponent(file.url)}`;
- console.log("hello");
+const src = `/api?canvasUrl=${encodeURIComponent(file.url)}`;
   return (
-      <div style={{ height: '80vh' }}>
+      <div style={{ height: '100vh' }}>
         <File src={src} />
     <div>
         
