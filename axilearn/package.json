@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
+    
+  
   },
   "dependencies": {
     "@embedpdf/core": "^2.14.2",

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Textarea } from '@/components/ui/textarea'
+import ChatInput from "../components/chatinput"
 
 export default function page() {
   return (
@@ -13,7 +13,7 @@ export default function page() {
           learn about?
         </h1>
       </main>
-      <Textarea />
+      <ChatInput />
     </div>
   )
 }
