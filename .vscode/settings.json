@@ -1,21 +1,3 @@
 {
-  "files.exclude": {
-    "axilearn/.gitignore": true,
-    "axilearn/components.json": true,
-    "axilearn/eslint.config.mjs": true,
-    "axilearn/next-env.d.ts": true,
-    "axilearn/next.config.ts": true,
-    "axilearn/node_modules": true,
-    "axilearn/package-lock.json": true,
-    "axilearn/README.md": true,
-    "axilearn/tsconfig.json": true,
-    ".git": true,
-    ".vscode": true,
-    "pnpm-lock.yaml": true,
-    ".gitignore": true,
-    "node_modules": true,
-    "package-lock.json": true,
-    "package.json": true,
-    "axilearn\\package.json": true
-  }
+  "files.exclude": {}
 }

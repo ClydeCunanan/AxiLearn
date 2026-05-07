@@ -2,6 +2,7 @@
   "name": "axilearn",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,6 +26,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "dotenv": "^17.4.2",
+    "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "pdfjs-dist": "3.11.174",
     "radix-ui": "^1.4.3",
