@@ -19,7 +19,8 @@ export default function SearchBar({ query, setQuery }: SearchBarProps) {
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Course Name"
+        placeholder="   Course Name"
+         className = "flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-500"
       />
       <button type="submit">
         <Search />

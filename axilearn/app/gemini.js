@@ -9,33 +9,29 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: resolve(__dirname, '../.env.local') });
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-console.log('GEMINI_API_KEY:', GEMINI_API_KEY);
+// console.log('GEMINI_API_KEY:', GEMINI_API_KEY);
 const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
 
-async function main() {
+ export default async function main(message) {
   const chat = ai.chats.create({
     model: "gemini-3-flash-preview",
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "Hello" }],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Great to meet you. What would you like to know?" }],
-      },
-    ],
+    history: []
   });
+  console.log(message, message.type);
+  const response = await chat.sendMessageStream({
+    message: message
+  });
+  console.log("Chat response 1:", response.text);
 
-  const response1 = await chat.sendMessage({
-    message: "How many dogs do I have ",
-  });
-  console.log("Chat response 1:", response1.text);
+  const aiResponse = response.text
 
-  const response2 = await chat.sendMessage({
-    message: "How many paws are in my house?",
-  });
-  console.log("Chat response 2:", response2.text);
+  
+
+chat.history.push({ role: "user", parts: [{ text: message.text }] }); 
+chat.history.push({ role: "model", parts: [{ text: response.text }] }); 
+  for await (const chunk of response) {
+    console.log(chunk.text);
+    console.log("_".repeat(80));
+  }
 }
 
-await main();
