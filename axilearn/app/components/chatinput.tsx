@@ -18,7 +18,9 @@ export default function ChatInput() {
     const formData = new FormData(e.currentTarget);
     e.currentTarget.reset();
     const message = formData.get("message");
-    const aiResponse =  await main()
+    const aiResponse =  await doSubmit(message as string);
+    console.log(aiResponse, typeof aiResponse);
+
     if (typeof message !== "string" || message.trim() === "") {
       alert("Please enter a valid message.");
     }
@@ -26,6 +28,7 @@ export default function ChatInput() {
     else {
       await doSubmit(message);
       setMessages([...messages, {role: "user", text: message, id: crypto.randomUUID()}]);
+      console.log(aiResponse);
       setMessages([...messages, {role: "ai", text: aiResponse, id: crypto.randomUUID()}]);
     }
   };

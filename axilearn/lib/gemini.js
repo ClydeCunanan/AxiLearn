@@ -1,12 +1,8 @@
+'use server';
+
 import dotenv from 'dotenv';
 import {GoogleGenAI} from '@google/genai';
-import {dirname, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: resolve(__dirname, '../.env.local') });
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 console.log('GEMINI_API_KEY:', GEMINI_API_KEY);
@@ -17,10 +13,10 @@ const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
     model: "gemini-3-flash-preview",
     history: []
   });
-  const response = await chat.sendMessageStream({
+  const response = await chat.sendMessage({
     message: message
   });
-  console.log("Chat response 1:", response.text);
+  
 chat.history.push({ role: "user", parts: [{ text: message.text }] }); 
 chat.history.push({ role: "model", parts: [{ text: response.text }] }); 
   // for await (const chunk of response) {
@@ -28,7 +24,7 @@ chat.history.push({ role: "model", parts: [{ text: response.text }] });
   //   console.log("_".repeat(80));
   // }
   const aiResponse = response.text;
-  return aiResponse; 
+  return aiResponse;
 }
 
 
