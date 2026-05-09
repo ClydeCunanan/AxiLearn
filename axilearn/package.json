@@ -8,8 +8,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
-    
-  
   },
   "dependencies": {
     "@embedpdf/core": "^2.14.2",
@@ -41,7 +39,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.40",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
