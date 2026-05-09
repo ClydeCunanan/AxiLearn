@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { doSubmit } from "../actions";
+import  main from "../../lib/gemini";
 import { ArrowUp, Code2, Image as ImageIcon, Mic } from "lucide-react";
 interface Message {
   id:   string;
@@ -11,25 +12,28 @@ interface Message {
  
 export default function ChatInput() {
   const [messages, setMessages] = React.useState<Message[]> ([]);
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     e.currentTarget.reset();
     const message = formData.get("message");
+    const aiResponse =  await main()
     if (typeof message !== "string" || message.trim() === "") {
       alert("Please enter a valid message.");
     }
+    
     else {
       await doSubmit(message);
       setMessages([...messages, {role: "user", text: message, id: crypto.randomUUID()}]);
-    
+      setMessages([...messages, {role: "ai", text: aiResponse, id: crypto.randomUUID()}]);
     }
   };
 
   return (
     <div className="mx-auto w-full max-w-md">
         <div className = "flex flex-col justify-end padding mb-4 gap-3"> 
+          {/* add clsx to render based on role  */}
         {messages.map((message) => (
             <div key={message.id} className={`rounded-lg p-2 ${message.role === "user" ? "bg-white/10 self-end" : "bg-white/20 self-start"}`}>
               {message.text}
