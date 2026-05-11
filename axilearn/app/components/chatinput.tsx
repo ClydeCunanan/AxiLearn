@@ -9,6 +9,8 @@ interface Message {
   text: string;
 }
 
+
+
  
 export default function ChatInput() {
   const [messages, setMessages] = React.useState<Message[]> ([]);
@@ -18,18 +20,26 @@ export default function ChatInput() {
     const formData = new FormData(e.currentTarget);
     e.currentTarget.reset();
     const message = formData.get("message");
-    const aiResponse =  await doSubmit(message as string);
-    console.log(aiResponse, typeof aiResponse);
 
     if (typeof message !== "string" || message.trim() === "") {
       alert("Please enter a valid message.");
+      console.log(typeof message);
+    }
+
+    else {
+      setMessages((prev)=>[...prev, {role: "user", text: message, id: crypto.randomUUID()}]);
+      
     }
     
-    else {
-      await doSubmit(message);
-      setMessages([...messages, {role: "user", text: message, id: crypto.randomUUID()}]);
-      console.log(aiResponse);
-      setMessages([...messages, {role: "ai", text: aiResponse, id: crypto.randomUUID()}]);
+    const aiResponse =  await doSubmit(message as string);
+
+    if (typeof aiResponse !== "string" || aiResponse.trim() === "") {
+      alert("Type of AI Response not string.");
+     
+    }
+    
+    else {    
+      setMessages((prev)=>[...prev, {role: "ai", text: aiResponse, id: crypto.randomUUID()}]);
     }
   };
 
