@@ -2,6 +2,7 @@
 import React from "react";
 import { doSubmit } from "../actions";
 import  main from "../../lib/gemini";
+import { createMessage } from "../actions";
 import { ArrowUp, Code2, Image as ImageIcon, Mic } from "lucide-react";
 interface Message {
   id:   string;
@@ -28,7 +29,7 @@ export default function ChatInput() {
 
     else {
       setMessages((prev)=>[...prev, {role: "user", text: message, id: crypto.randomUUID()}]);
-      
+      const result = await createMessage(conversationId, message)
     }
     
     const aiResponse =  await doSubmit(message as string);

@@ -11,14 +11,21 @@ model User {
   id    Int     @id @default(autoincrement()) 
   email String  @unique
   name  String?
-  posts Post[]
+  conversations Conversation[] 
 } 
 
-model Post { 
-  id        Int     @id @default(autoincrement()) 
+model Conversation {
+  id        Int      @id @default(autoincrement())
   title     String
-  content   String?
-  published Boolean @default(false) 
-  author    User    @relation(fields: [authorId], references: [id]) 
-  authorId  Int
-} 
+  userID    Int
+  user      User     @relation(fields: [userID], references: [id])
+  messages  Message[] 
+}
+
+model Message {
+  id            Int          @id @default(autoincrement())
+  content        String
+  conversationID Int
+  conversation   Conversation @relation(fields: [conversationID], references: [id])
+
+}

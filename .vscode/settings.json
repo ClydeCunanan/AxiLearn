@@ -1,3 +1,17 @@
 {
-  "files.exclude": {}
+  "files.exclude": {
+    "axilearn\\eslint.config.mjs": true,
+    "axilearn\\components.json": true,
+    "axilearn\\package-lock.json": true,
+    "axilearn/.gitignore": true,
+    "axilearn/components.json": true,
+    "axilearn/eslint.config.mjs": true,
+    "axilearn/next-env.d.ts": true,
+    "axilearn/next.config.ts": true,
+    "axilearn/package-lock.json": true,
+    "axilearn/README.md": true,
+    "axilearn\\next-env.d.ts": true,
+    "axilearn\\pnpm-lock.yaml": true,
+    "axilearn\\postcss.config.mjs": true
+  }
 }
