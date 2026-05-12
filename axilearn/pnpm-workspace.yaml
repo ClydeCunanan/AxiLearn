@@ -1,0 +1,6 @@
+allowBuilds:
+  '@google/genai': false
+  '@prisma/engines': false
+  better-sqlite3: false
+  msw: false
+  prisma: false
