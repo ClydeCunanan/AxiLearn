@@ -1,21 +1,18 @@
 "use client";
 import React from "react";
-import { doSubmit } from "../actions";
-import  main from "../../lib/gemini";
-import { createMessage } from "../actions";
+import { createMessage, doSubmit } from "../actions";
 import { ArrowUp, Code2, Image as ImageIcon, Mic } from "lucide-react";
+
 interface Message {
-  id:   string;
+  id: string;
   role: string;
   text: string;
-}
+}     
 
-
-
- 
 export default function ChatInput() {
-  const [messages, setMessages] = React.useState<Message[]> ([]);
-  
+  const [messages, setMessages] = React.useState<Message[]>([]);
+  const [conversationId, setConversationId] = React.useState<string>("");
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -25,35 +22,59 @@ export default function ChatInput() {
     if (typeof message !== "string" || message.trim() === "") {
       alert("Please enter a valid message.");
       console.log(typeof message);
+      return;
     }
 
-    else {
-      setMessages((prev)=>[...prev, {role: "user", text: message, id: crypto.randomUUID()}]);
-      const result = await createMessage(conversationId, message)
+    const userMessage = message;
+
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", text: userMessage, id: crypto.randomUUID() },
+    ]);
+
+    const result = await createMessage(conversationId, userMessage);
+
+    if (result.success == false || result.conversationId == null) {
+      console.log(" Failed to create message or conversation.");
+      return;
     }
-    
-    const aiResponse =  await doSubmit(message as string);
+
+    if (!conversationId) {
+
+      setConversationId(result.conversationId)
+   console.log("successfully created new conversation with id: ", result.conversationId);
+     ;
+    }
+
+    const aiResponse = await doSubmit(userMessage);
 
     if (typeof aiResponse !== "string" || aiResponse.trim() === "") {
       alert("Type of AI Response not string.");
-     
+      return;
     }
-    
-    else {    
-      setMessages((prev)=>[...prev, {role: "ai", text: aiResponse, id: crypto.randomUUID()}]);
-    }
+
+    setMessages((prev) => [
+      ...prev,
+      { role: "ai", text: aiResponse, id: crypto.randomUUID() },
+    ]);
+
+    await createMessage(conversationId, aiResponse);
+       console.log("successful ai reply with id: ", result.conversationId);
+
   };
 
   return (
     <div className="mx-auto w-full max-w-md">
-        <div className = "flex flex-col justify-end padding mb-4 gap-3"> 
-          {/* add clsx to render based on role  */}
+      <div className="mb-4 flex flex-col justify-end gap-3 padding">
         {messages.map((message) => (
-            <div key={message.id} className={`rounded-lg p-2 ${message.role === "user" ? "bg-white/10 self-end" : "bg-white/20 self-start"}`}>
-              {message.text}
-            </div>
-          ))}
-        </div>
+          <div
+            key={message.id}
+            className={`rounded-lg p-2 ${message.role === "user" ? "self-end bg-white/10" : "self-start bg-white/20"}`}
+          >
+            {message.text}
+          </div>
+        ))}
+      </div>
 
       <form
         onSubmit={handleSubmit}
@@ -62,9 +83,6 @@ export default function ChatInput() {
         <label htmlFor="message" className="sr-only">
           Ask a question
         </label>
-
-        
-
 
         <input
           id="message"
