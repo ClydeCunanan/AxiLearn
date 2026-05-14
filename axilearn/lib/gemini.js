@@ -32,14 +32,3 @@ chat.history.push({ role: "model", parts: [{ text: response.text }] });
   return aiResponse;
 }
 
-
-
-
-
-
-  //how to get response .text  to messages to be displayed 
-
-
-// export default async function main(message) {
-//   console.log('Received message:', message);
-// }
