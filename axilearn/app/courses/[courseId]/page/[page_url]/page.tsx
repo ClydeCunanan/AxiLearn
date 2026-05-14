@@ -12,11 +12,13 @@ export default async function Page({
        getPagebyId(courseId, page_url)
       ]);
     return (
-        <div>
-            <h1>{course.name}</h1>
-            <h2>{page.title}</h2>
+        <div className="space-y-6 px-4 py-5 sm:px-6 sm:py-6">
+            <div className="space-y-2 border-l-4 border-red-600 pl-4">
+                <h1 className="text-3xl font-bold text-foreground">{course.name}</h1>
+                <h2 className="text-xl font-semibold text-red-600">{page.title}</h2>
+            </div>
             <div className="prose prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: page.body }} />
-                
+            <button>Create Module</button>
         </div>
     )
 }
