@@ -1,14 +1,22 @@
-
-import {Accordion, AccordionItem, AccordionTrigger, AccordionContent }from "@/components/ui/accordion"
-import { getCourseById, getCourseModules} from "@/lib/canvas"
-import Link from "next/link"
-export default async function Page({ params }: { params: Promise<{ courseId: string }> } ) {
-  const { courseId } = await params
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { getCourseById, getCourseModules } from "@/lib/canvas";
+import Link from "next/link";
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ courseId: string }>;
+}) {
+  const { courseId } = await params;
   const [course, modules] = await Promise.all([
     getCourseById(courseId),
-   getCourseModules(courseId)
+    getCourseModules(courseId),
   ]);
-    
+
   return (
     <div className="space-y-4 px-4 py-5 sm:px-6 sm:py-6">
       <div className="space-y-1">
@@ -41,15 +49,13 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
                         >
                           {item.title}
                         </div>
-                      )
-                     
+                      );
                     }
-                    
-
+                    //THIS if is for returning items without links like subheaders
                     const href =
                       item.pageUrl == null
                         ? `/courses/${courseId}/file/${encodeURIComponent(String(item.contentId ?? item.id))}`
-                        : `/courses/${courseId}/page/${encodeURIComponent(item.pageUrl)}`
+                        : `/courses/${courseId}/page/${encodeURIComponent(item.pageUrl)}`;
 
                     return (
                       <Link
@@ -57,9 +63,11 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
                         href={href}
                         className=" block rounded-xl border border-border/70 bg-background px-3 py-3 text-foreground shadow-sm transition-colors hover:bg-muted/70"
                       >
-                        <h3 className=" text-sm font-medium leading-5">{item.title}</h3>
+                        <h3 className=" text-sm font-medium leading-5">
+                          {item.title}
+                        </h3>
                       </Link>
-                    )
+                    );
                   })}
                 </div>
               </AccordionContent>
@@ -68,5 +76,5 @@ export default async function Page({ params }: { params: Promise<{ courseId: str
         </Accordion>
       </div>
     </div>
-  )
+  );
 }
