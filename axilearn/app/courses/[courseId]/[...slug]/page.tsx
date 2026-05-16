@@ -1,6 +1,6 @@
 import { getFilebyId } from "@/lib/canvas";
 import File from "@/app/components/file";
-import Generate from "@/app/components/generate";
+import Generate from "@/app/components/choices";
 import { getCourseById, getPagebyId } from "@/lib/canvas";
 import Link from "next/link";
 export default async function Page({
@@ -15,14 +15,14 @@ export default async function Page({
     const fileUrl = slug[1];
     const file = await getFilebyId(courseId, fileUrl);
     const src = `/api?canvasUrl=${encodeURIComponent(file.url)}`;
-    if (slug[2] === "generate") {
-     return <Generate courseId={courseId} slug={slug} title={file.display_name} />;
+    if (slug[2] === "choices") {
+     return <Generate type={slug[0]} url={slug[1]} courseId={courseId} slug={slug} title={file.display_name} />;
   } 
     return (
       <div style={{ height: "100vh" }}>
         <File src={src} />
         <Link
-          href={`/courses/${courseId}/${slug[0]}/${slug[1]}/generate`}
+          href={`/courses/${courseId}/${slug[0]}/${slug[1]}/choices`}
           className="btn-primary"
         >
        Generate Flashcards
@@ -37,8 +37,8 @@ export default async function Page({
       getCourseById(courseId),
       getPagebyId(courseId, page_url),
     ]);
-      if (slug[2] === "generate") {
-     return <Generate courseId={courseId} slug={slug} title={page.title} />;
+      if (slug[2] === "choices") {
+     return <Generate type={slug[0]} url={slug[1]} courseId={courseId} slug={slug} title={page.title} />;
   } 
     return (
       <div className="space-y-6 px-4 py-5 sm:px-6 sm:py-6">
@@ -51,7 +51,7 @@ export default async function Page({
           dangerouslySetInnerHTML={{ __html: page.body }}
         />
         <Link
-          href={`/courses/${courseId}/${slug[0]}/${slug[1]}/generate`}
+          href={`/courses/${courseId}/${slug[0]}/${slug[1]}/choices`}
           className="btn-primary"
         >
           Generate Flashcards

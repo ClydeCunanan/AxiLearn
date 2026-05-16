@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   //new url converts the url string into object parts, 
 //   in this case we're getting searchParams
   const canvasUrl = searchParams.get("canvasUrl");
-  console.log("gumagana")
+  console.log("route triggered")
   if (!canvasUrl) {
     return new Response("Missing canvasUrl parameter", { status: 400 });
   }

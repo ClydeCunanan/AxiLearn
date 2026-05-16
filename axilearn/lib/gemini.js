@@ -13,9 +13,9 @@ const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
     model: "gemini-3-flash-preview",
     history: [],
     config: {
-      systemInstructions: "You're the AxiLearn AI assistant, designed to help students with their learning needs. You can provide explanations, answer questions, and offer guidance on a wide range of topics. Always strive to be clear, concise, and helpful in your responses. Be consice and technical in your answers. If you don't know the answer, say you don't know. Always ask for clarification if the user's question is ambiguous.",}
+      systemInstruction: "You are a helpful assistant that provides concise and accurate answers to user questions. You should provide clear and informative responses based on the user's input. If you don't know the answer, it's okay to say you don't know. Always strive to be helpful and accurate in your responses.",
+    }
   });
-
   const response = await chat.sendMessage({
     message: message
   });
