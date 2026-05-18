@@ -27,7 +27,9 @@ export async function genAction(type: string, courseId: string, url: string, str
      for (let index = 0 ; index < imgCount.length; index++) {
           const source = $(imgCount[index]).attr('src');
         
-         if (source) {
+         if (source){
+             
+               try {
             const response = await fetch(source)
              const arrayBuffer = await response.arrayBuffer();
              const base64 = Buffer.from(arrayBuffer).toString('base64');
@@ -37,23 +39,27 @@ export async function genAction(type: string, courseId: string, url: string, str
       // 4. Swap the HTML tag for your text placeholder
       $(imgCount[index]).replaceWith(placeValueMarker);
          } 
+         catch (error){
+            console.error(error)
+         }}
          //this cheerio logic will take the html body, 
          //get all the img tags, turn into an array
          //turn the src properties into base64
          //and store into separate array
          //also adding placeholder so gemini api knows 
          //where in the html body, the array index belongs in
-    const cleanHTML = $.text().replace(/\s+/g, " ").trim(); 
 
      //this removes all the tags and cleans spaces
      
-     const content = {
-        cleanHTML, 
+    }
+    const cleanHTML = $.text().replace(/\s+/g, " ").trim(); 
+       const content = {
+        cleanHTML , 
         downloadedImages,
      }
-
-    }
-
+    const action = await generator(content, structure)
+    console.log("Generate Actions.ts triggered")
+    return action;
 }
     if (type === "file") {
      content = await getFilebyId(courseId, url)
