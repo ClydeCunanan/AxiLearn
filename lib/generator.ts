@@ -96,7 +96,8 @@ interface ContentInput {
   downloadedImages: string[];
 }
 
-export default async function generator(content: ContentInput, title: string) {
+
+export default async function generatorPage(content: ContentInput, title: string) {
   let schema;
   
   // Symmetrical layout mapping
@@ -146,5 +147,53 @@ export default async function generator(content: ContentInput, title: string) {
   } catch (error) {
     console.error("❌ Fatal Error in Gemini Generation Pipeline:", error);
     throw error;
+  }
+}
+
+export  async function generatorFile(content: string, title: string) {
+  const ;
+  
+
+
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash", 
+      contents: [
+        // Component 1: The document/webpage text structural source
+        { text: content },
+        
+      ],
+      config: {
+        systemInstruction: `You are an elite study material generator. Generate a precise list of ${title} entries based on the context text and reference layout positions of the provided images.`,
+        responseMimeType: "application/json",
+        responseSchema: schema 
+      }
+    });
+
+    // Parse the safe, structured response text
+    const parsedData = JSON.parse(response.text ?? "no data");
+    console.log("🚀 Generation Payload Received Successfully");
+    
+    console.log(parsedData);
+    return parsedData;
+  } catch (error) {
+    console.error("❌ Fatal Error in Gemini Generation Pipeline:", error);
+    throw error;
+  }
+}
+
+function schemaHelper(title: string) {
+  if (title === "Basic Flashcards") {
+    return generateStructures.flashcards;
+  } else if (title === "Practice Problems") {
+    return generateStructures.practice;
+  } else if (title === "Fill in the blanks") {
+    return generateStructures.fill;
+  } else if (title === "Multiple Choice") {
+    return generateStructures.mcq;
+  } else {
+    console.error("❌ Generation title not matched to a valid schema target:", title);
+    return null;
   }
 }
