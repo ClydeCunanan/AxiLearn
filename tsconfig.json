@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/gemini.ts", "app/gemini.ts", "lib/gemini.ts", "lib/generator.ts"  ],
+, "app/gemini.ts", "app/gemini.ts", "lib/gemini.ts", "lib/generator.js"  ],
   "exclude": ["node_modules"]
 }

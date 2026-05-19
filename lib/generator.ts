@@ -142,6 +142,7 @@ export default async function generator(content: ContentInput, title: string) {
     console.log("🚀 Generation Payload Received Successfully");
     
     console.log(parsedData);
+    return parsedData;
   } catch (error) {
     console.error("❌ Fatal Error in Gemini Generation Pipeline:", error);
     throw error;
