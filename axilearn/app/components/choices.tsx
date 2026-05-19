@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { genAction } from "../actions";
 
+
 interface GenerateProps {
   courseId: string;
   slug: string[];
@@ -12,63 +13,50 @@ interface GenerateProps {
   type: string;
 }
 
+export interface GenerateOption {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  structure: any;
+}
+
 const generateOptions = [
   {
     id: "flashcards",
     title: "Basic Flashcards",
     description: "Front/back recall",
     icon: "📚",
-    structure: {
-      id: "string",
-      title: "string",
-      description: "string",
-      backAnswer: "string",
-      tag: "string",
-    },
   },
   {
     id: "practice",
     title: "Practice Problems",
     description: "Q&A exercises",
     icon: "✏️",
-    structure: {
-      problem: "string",
-      solution: "string",
-      explanation: "string",
-      difficulty: "string",
-    },
   },
   {
     id: "Fill",
     title: "Fill in the blanks",
     description: "Fill in the blanks",
     icon: "🔲",
-    structure: {
-      sentenceWithBlank: "string (use ____ for blanks)",
-      correctMissingWord: "string",
-      contextHint: "string",
-    },
   },
   {
     id: "mcq",
     title: "Multiple Choice",
     description: "Structured questions",
     icon: "✅",
-    structure: {
-      question: "string",
-      options: "string[] (array of 4 strings)",
-      correctAnswerIndex: "number",
-      rationale: "string",
-    },
   },
 ];
 
-export default function Choices({type, url, courseId, slug, title }: GenerateProps) {
-  const handleClick = async (structure: string) => {
-    console.log("Clicked option contains structure:", structure);
-
-    const action = await genAction(type, courseId, url, structure);
-    
+export default function Choices({
+  type,
+  url,
+  courseId,
+  slug, 
+  title,
+}: GenerateProps) {
+  const handleClick = async (title: string) => {
+    const action = await genAction(type, courseId, url, title);
   };
   return (
     <div className="min-h-screen px-4 py-6 sm:px-6 sm:py-8 bg-background">
@@ -85,7 +73,7 @@ export default function Choices({type, url, courseId, slug, title }: GeneratePro
         <div className="grid grid-cols-2 gap-3 mb-8">
           {generateOptions.map((opt: any) => (
             <div
-              onClick={() => handleClick(opt.structure)}
+              onClick={() => handleClick(opt.title)}
               key={opt.id}
               className="group"
             >

@@ -12,7 +12,7 @@ export async function doSubmit(message: string) {
     return aiResponse;
 }
 
-export async function genAction(type: string, courseId: string, url: string, structure: string) {
+export async function genAction(type: string, courseId: string, url: string, title:string) {
     let content 
     if (type == "page") {
      let page = await getPagebyId(courseId, url)
@@ -57,7 +57,7 @@ export async function genAction(type: string, courseId: string, url: string, str
         cleanHTML , 
         downloadedImages,
      }
-    const action = await generator(content, structure)
+    const action = await generator(content, title)
     console.log("Generate Actions.ts triggered")
     return action;
 }
@@ -75,7 +75,7 @@ export async function genAction(type: string, courseId: string, url: string, str
 
   
 
-    const action = await generator(content, structure)
+    const action = await generator(content, title)
     console.log("Generate Actions.ts triggered")
     return action;
 }
